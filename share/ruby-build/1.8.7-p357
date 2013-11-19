@@ -1,3 +1,13 @@
+build_package_stdout_patch() {
+    wget 'http://bugs.ruby-lang.org/attachments/download/1931/stdout-rouge-fix.patch'
+    patch -p1 < stdout-rouge-fix.patch
+}
+
+build_package_ossl_patch() {
+    wget 'https://gist.github.com/jkinred/7493540/raw/ff9bb6d2fcf79be0690bbb54fc2765d617a79f17/MRI-41808-notests.patch'
+    patch -p1 < MRI-41808-notests.patch
+}
+
 require_gcc
-install_package "ruby-1.8.7-p357" "http://cache.ruby-lang.org/pub/ruby/1.8/ruby-1.8.7-p357.tar.gz#b2b8248ff5097cfd629f5b9768d1df82" auto_tcltk standard
+install_package "ruby-1.8.7-p357" "http://cache.ruby-lang.org/pub/ruby/1.8/ruby-1.8.7-p357.tar.gz#b2b8248ff5097cfd629f5b9768d1df82" ossl_patch stdout_patch auto_tcltk standard
 install_package "rubygems-1.6.2" "http://production.cf.rubygems.org/rubygems/rubygems-1.6.2.tgz#0c95a9869914ba1a45bf71d3b8048420" ruby
